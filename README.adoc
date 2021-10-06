@@ -1,0 +1,131 @@
+= Codename One App Tracking Library
+
+A thin wrapper around Apple's native AppTracking framework that is required on iOS if your app performs any form of user tracking.  Essentially this provides an API to request the user's permission to "track" them.
+
+== License
+
+MIT
+
+== Installation
+
+=== Maven Projects
+
+If you're project uses Maven, you should add the following Maven dependency to your common/pom.xml file:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.codenameone</groupId>
+    <artifactId>app-tracking-lib</artifactId>
+    <type>pom</type>
+    <version>1.0</version>
+</dependency>
+----
+
+=== Ant Projects
+
+If your project uses Ant, then you can install the app-tracking.cn1lib through Codename One preferences.
+
+== Usage
+
+=== Prerequisites
+
+Your app must add the `ios.NSUserTrackingUsageDescription` build hint, which includes a description of _why_ you need to track the user.
+
+TIP: If you call any of the AppTracking APIs in the simulator, it will automatically add this build hint with a default message.  You should still customize this message to describe your app's requirements, in the _Advanced_ > _Build hints_ section of Codename One Settings.
+
+=== Requesting App Tracking Authorization
+
+Use the `AppTracking.requestTrackingAuthorization()` method to initiate a tracking authorization request.  If the user hasn't yet approved tracking, this will prompt the user to accept/reject tracking.
+
+E.g.
+
+[source,java]
+----
+import com.codenameone.app.tracking.AppTracking;
+
+...
+private void requestAuthorization() {
+    if (!AppTracking.isSupported()) {
+        Dialog.show("Not supported", "App tracking API is not supported on this platform", "OK", null);
+        return;
+    }
+    InfiniteProgress progress = new InfiniteProgress();
+    Dialog infiniteProgressDialog = progress.showInfiniteBlocking();
+    AppTracking.requestTrackingAuthorization().onResult((status, err) -> {
+        infiniteProgressDialog.dispose();
+        if (err != null) {
+            Log.e(err);
+            Dialog.show("Error", err.getMessage(), "OK", null);
+            return;
+        }
+        Dialog.show("Status", "Status is "+status.name(), "OK", null);
+    });
+}
+
+----
+
+The `requestTrackingAuthorization()` method is asynchronous, and returns an `AsyncResource<AuthorizationStatus>` object.  Use its `onResult()` method to pass a callback to handle the result.
+
+NOTE: The `status` pararmeter that is passed to the onResult() callback is an <<authorizationstatusenum,AuthorizationStatus enum>>.
+
+=== Checking App Tracking Status
+
+Use the `AppTracking.getTrackingAuthorizationStatus()` method to check the current tracking <<authorizationstatusenum,authorization status>>.
+
+[source,java]
+----
+import com.codenameone.app.tracking.AppTracking;
+
+...
+
+private void checkStatus() {
+    if (!AppTracking.isSupported()) {
+        Dialog.show("Not supported", "App tracking API is not supported on this platform", "OK", null);
+        return;
+    }
+    switch(AppTracking.getTrackingAuthorizationStatus()) {
+        case NotDetermined:
+            // Handle case where tracking is not yet determined.
+            return;
+        case Restricted:
+            // Handle case where tracking is restricted
+            return;
+        case Denied:
+            // Handle case where tracking request was denied
+            return;
+        case Authorized:
+            // Handle case where trackint request was authorized
+            return;
+    }
+
+}
+
+----
+
+[#authorizationstatusenum]
+== AuthorizationStatus Enum Definition
+
+Authorization status is encapsulated by the `AuthorizationStatus` enum, which has the following definition:
+
+[source,java]
+----
+public static enum AuthorizationStatus {
+    NotDetermined,  /* Status not yet determined */
+    Restricted,     /* Status is restricted */
+    Denied,         /* User denied tracking request already */
+    Authorized      /* User authorized tracking request already */
+}
+----
+
+
+== Credits
+
+Written by https://sjhannah.com[Steve Hannah], Codename One.
+
+== References
+
+. https://www.codenameone.com[Codename One website]
+. https://developer.apple.com/documentation/apptrackingtransparency?language=objc[Apple's native AppTracking API docs]
+
+

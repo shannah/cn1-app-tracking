@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Generate Native Interfaces</actionName>
+            <displayName>Generate Native Interfaces</displayName>
+            <goals>
+                <goal>cn1:generate-native-interfaces</goal>
+            </goals>
+        </action>
+    </actions>
