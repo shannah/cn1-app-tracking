@@ -4,7 +4,7 @@
 
     <groupId>com.codenameone</groupId>
     <artifactId>app-tracking</artifactId>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>app-tracking</name>
@@ -38,8 +38,8 @@
 
 	  
     <properties>
-        <cn1.plugin.version>8.0-SNAPSHOT</cn1.plugin.version>
-        <cn1.version>8.0-SNAPSHOT</cn1.version>
+        <cn1.plugin.version>7.0.42</cn1.plugin.version>
+        <cn1.version>7.0.42</cn1.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	      
         <java.version>1.8</java.version>
