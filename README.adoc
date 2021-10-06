@@ -118,6 +118,9 @@ public static enum AuthorizationStatus {
 }
 ----
 
+== Building From Source
+
+Clone this repo, then run `mvn install`
 
 == Credits
 

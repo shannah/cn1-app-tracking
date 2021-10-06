@@ -9,40 +9,32 @@
 
     <name>app-tracking</name>
     <description>Codename One app-tracking library</description>
-    <url>https://www.codenameone.com</url>
+    <url>https://github.com/shannah/cn1-app-tracking</url>
 
     <licenses>
         <license>
-            <name>GPL v2 With Classpath Exception</name>
-            <url>https://openjdk.java.net/legal/gplv2+ce.html</url>
+            <name>MIT</name>
+            <url>https://mit-license.org/</url>
             <distribution>repo</distribution>
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
 
-    <!-- UNCOMMENT AND COMPLETE THIS SECTION IF PUBLISHING TO MAVEN CENTRAL -->
-    <!--
     <developers>
         <developer>
-            <id>exampleId</id>
-            <name>FirstName LastName</name>
-            <email>yourname@example.com</email>
+            <id>shannah78</id>
+            <name>Steve Hannah</name>
+            <email>steve.hannah@codenameone.com</email>
             <timezone>-8</timezone>
         </developer>
 
     </developers>
 
-    -->
-    <!-- UNCOMMENT AND COMPLETE THIS SECTION IF PUBLISHING TO MAVEN CENTRAL
-        ME => Your Github Username
-        MYREPO => Your github repository name.
-    -->
-    <!--
     <scm>
-        <url>https://github.com/ME/MYREPO</url>
-        <connection>scm:git:git@github.com:ME/MYREPO.git</connection>
+        <url>https://github.com/shannah/:cn1-app-tracking</url>
+        <connection>scm:git:git@github.com:shannah/:cn1-app-tracking.git</connection>
     </scm>
-    -->
+
 
 	  
     <properties>
@@ -159,14 +151,15 @@
                     </plugin>
         </plugins>
         </pluginManagement>
-        <plugins><plugin>
-                        <groupId>com.codenameone</groupId>
-                        <artifactId>codenameone-maven-plugin</artifactId>
-                        <version>${cn1.plugin.version}</version>
-                        <configuration>
-                            <goalPrefix>cn1</goalPrefix>
-                          </configuration>
-                    </plugin>
+        <plugins>
+            <plugin>
+                <groupId>com.codenameone</groupId>
+                <artifactId>codenameone-maven-plugin</artifactId>
+                <version>${cn1.plugin.version}</version>
+                <configuration>
+                    <goalPrefix>cn1</goalPrefix>
+                  </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
